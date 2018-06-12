@@ -22,13 +22,15 @@ event.waitUntil(
         './img/10.jpg'
         ]);
     })
-  ).then(self.skipWaiting());  
+  ).then(self.skipWaiting());
 });
 self.addEventListener('activate', function(event) {
     event.waitUntil(self.clients.claim());
 });
   
   self.addEventListener('fetch', function(event) {
-      caches.match('restaurant-app');
+      caches.match(event.request).then(function(response){
+          return response;
+      });
   });
   
